@@ -61,6 +61,19 @@ try:
 except ImportError:
     docstring_parser = None  # type: ignore
 
+try:
+    import zoneinfo
+except ImportError:
+    try:
+        from backports import zoneinfo  # type: ignore
+    except ImportError:
+        zoneinfo = None  # type: ignore
+
+try:
+    import pytz
+except ImportError:
+    pytz = None  # type: ignore
+
 _original_except_hook = sys.excepthook
 _typer_developer_exception_attr_name = "__typer_developer_exception__"
 
@@ -762,6 +775,10 @@ def get_click_type(
         return extra_click_types.Date(formats=parameter_info.formats)
     elif annotation == time:
         return extra_click_types.Time(formats=parameter_info.formats)
+    elif zoneinfo is not None and annotation == zoneinfo.ZoneInfo:
+        return extra_click_types.ZoneInfo()
+    elif pytz is not None and annotation == pytz.BaseTzInfo:
+        return extra_click_types.PytzTimezone()
     elif (
         annotation == Path
         or parameter_info.allow_dash

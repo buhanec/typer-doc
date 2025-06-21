@@ -112,6 +112,7 @@ nav:
           - tutorial/parameter-types/datetime.md
           - tutorial/parameter-types/date.md
           - tutorial/parameter-types/time.md
+          - tutorial/parameter-types/timezone.md
           - tutorial/parameter-types/enum.md
           - tutorial/parameter-types/path.md
           - tutorial/parameter-types/file.md
