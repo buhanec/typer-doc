@@ -44,6 +44,7 @@ The patches applied by the fork include:
 
 * **Param help from docstrings**: Parse param help string from docstrings.
 * **Fix plain defaults formatting**: Remove errant backslash when not using `rich` formatting 
+* **Add `Literal` support**: `Literal` annotations create a choice parameter
 * **Test running**: Allow running "Linux" tests on macOS, correctly detect bash being present 
 
 ## FastAPI of CLIs
