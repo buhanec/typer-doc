@@ -222,7 +222,10 @@ def get_docs_for_click(
     args = []
     opts = []
     for param in obj.get_params(ctx):
-        rv = param.get_help_record(ctx)
+        if isinstance(param, (typer.core.TyperArgument, typer.core.TyperOption)):
+            rv = param.get_help_record(ctx, docs=True)
+        else:
+            rv = param.get_help_record(ctx)
         if rv is not None:
             if param.param_type_name == "argument":
                 args.append(rv)
