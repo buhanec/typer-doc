@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import sys
 import traceback
-from datetime import date, datetime
+from datetime import date, datetime, time
 from enum import Enum
 from functools import update_wrapper
 from pathlib import Path
@@ -760,6 +760,8 @@ def get_click_type(
         return click.DateTime(formats=parameter_info.formats)
     elif annotation == date:
         return extra_click_types.Date(formats=parameter_info.formats)
+    elif annotation == time:
+        return extra_click_types.Time(formats=parameter_info.formats)
     elif (
         annotation == Path
         or parameter_info.allow_dash
