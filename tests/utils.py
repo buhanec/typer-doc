@@ -1,3 +1,4 @@
+import shutil
 import sys
 from os import getenv
 
@@ -24,7 +25,7 @@ needs_linux = pytest.mark.skipif(
 )
 
 needs_bash = pytest.mark.skipif(
-    not shellingham or not shell or "bash" not in shell, reason="Test requires Bash"
+    shutil.which("bash") is not None, reason="Test requires Bash"
 )
 
 requires_completion_permission = pytest.mark.skipif(
