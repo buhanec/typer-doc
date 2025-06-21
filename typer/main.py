@@ -63,7 +63,7 @@ except ImportError:  # pragma: no cover
 try:
     import docstring_parser
 except ImportError:
-    docstring_parser = None   # type: ignore
+    docstring_parser = None  # type: ignore
 
 _original_except_hook = sys.excepthook
 _typer_developer_exception_attr_name = "__typer_developer_exception__"
@@ -566,11 +566,16 @@ def get_params_convertors_ctx_param_name_from_function(
                 context_param_name = param_name
                 continue
             click_param, convertor = get_click_param(param)
-            if isinstance(click_param, (TyperArgument, click.Option)) and click_param.help is None:
+            if (
+                isinstance(click_param, (TyperArgument, click.Option))
+                and click_param.help is None
+            ):
                 if docstring_parser is not None and docstring_help is None:
                     docstring_help = {
                         param.arg_name: param.description
-                        for param in docstring_parser.parse(callback.__doc__ or "").params
+                        for param in docstring_parser.parse(
+                            callback.__doc__ or ""
+                        ).params
                     }
                 if docstring_help is not None:
                     click_param.help = docstring_help.get(param.name)
@@ -590,7 +595,8 @@ def get_command_from_info(
     name = command_info.name or get_command_name(command_info.callback.__name__)
     use_help = command_info.help
     if use_help is None:
-        use_help = docstring_parser.parse(command_info.callback.__doc__ or "").description
+        docstring = command_info.callback.__doc__ or ""
+        use_help = docstring_parser.parse(docstring).description
     else:
         use_help = inspect.cleandoc(use_help)
     (

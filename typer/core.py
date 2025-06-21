@@ -324,7 +324,9 @@ class TyperArgument(click.core.Argument):
     ) -> Optional[Union[Any, Callable[[], Any]]]:
         return _extract_default_help_str(self, ctx=ctx)
 
-    def get_help_record(self, ctx: click.Context, docs: bool = False) -> Optional[Tuple[str, str]]:
+    def get_help_record(
+        self, ctx: click.Context, docs: bool = False
+    ) -> Optional[Tuple[str, str]]:
         # Modified version of click.core.Option.get_help_record()
         # to support Arguments
         if self.hidden:
@@ -497,7 +499,9 @@ class TyperOption(click.core.Option):
         # Click < 8.2
         return super().make_metavar()  # type: ignore[call-arg]
 
-    def get_help_record(self, ctx: click.Context, docs: bool = False) -> Optional[Tuple[str, str]]:
+    def get_help_record(
+        self, ctx: click.Context, docs: bool = False
+    ) -> Optional[Tuple[str, str]]:
         # Duplicate all of Click's logic only to modify a single line, to allow boolean
         # flags with only names for False values as it's currently supported by Typer
         # Ref: https://typer.tiangolo.com/tutorial/parameter-types/bool/#only-names-for-false
