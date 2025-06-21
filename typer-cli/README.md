@@ -8,13 +8,8 @@
 <a href="https://github.com/fastapi/typer/actions?query=workflow%3ATest" target="_blank">
     <img src="https://github.com/fastapi/typer/workflows/Test/badge.svg" alt="Test">
 </a>
-<a href="https://github.com/fastapi/typer/actions?query=workflow%3APublish" target="_blank">
-    <img src="https://github.com/fastapi/typer/workflows/Publish/badge.svg" alt="Publish">
-</a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/typer" target="_blank">
-    <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/typer.svg" alt="Coverage">
-<a href="https://pypi.org/project/typer" target="_blank">
-    <img src="https://img.shields.io/pypi/v/typer?color=%2334D058&label=pypi%20package" alt="Package version">
+<a href="https://pypi.org/project/typer-doc" target="_blank">
+    <img src="https://img.shields.io/pypi/v/typer-doc?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
 </p>
 
