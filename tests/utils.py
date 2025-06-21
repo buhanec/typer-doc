@@ -20,7 +20,7 @@ needs_py310 = pytest.mark.skipif(
 )
 
 needs_linux = pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="Test requires Linux"
+    not sys.platform.startswith(("linux", "darwin")), reason="Test requires Linux/macOS"
 )
 
 needs_bash = pytest.mark.skipif(
