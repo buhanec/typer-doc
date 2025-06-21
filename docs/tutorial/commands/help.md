@@ -6,6 +6,10 @@ And the `typer.Typer()` application receives a parameter `help` that you can pas
 
 {* docs_src/commands/help/tutorial001_an.py hl[4,9:11,22,26:30,43,47:51,60:62] *}
 
+Alternatively, a best-effort attempt is made to parse docstrings and infer the help string:
+
+{* docs_src/commands/help/tutorial001_doc.py *}
+
 Check it:
 
 <div class="termy">
