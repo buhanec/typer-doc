@@ -18,7 +18,7 @@ $ python main.py --help
 Usage: main.py [OPTIONS] BIRTH:[%Y-%m-%d]
 
 Arguments:
-  BIRTH:[%Y-%m-%d][required]
+  BIRTH:[%Y-%m-%d]  [required]
 
 Options:
   --install-completion  Install completion for the current shell.
