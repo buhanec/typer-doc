@@ -13,12 +13,18 @@ from typing import (
     Union,
 )
 
+from typing_extensions import Literal as LiteralTypingExtensions
+
+if sys.version_info < (3, 8):
+    from typing_extensions import Literal
+else:
+    from typing import Literal
+
 if sys.version_info >= (3, 9):
-    from typing import Annotated, Literal, get_args, get_origin, get_type_hints
+    from typing import Annotated, get_args, get_origin, get_type_hints
 else:
     from typing_extensions import (
         Annotated,
-        Literal,
         get_args,
         get_origin,
         get_type_hints,
@@ -48,6 +54,7 @@ __all__ = (
     "get_args",
     "get_origin",
     "get_type_hints",
+    "literal_values",
 )
 
 
@@ -93,7 +100,8 @@ def is_callable_type(type_: Type[Any]) -> bool:
 
 
 def is_literal_type(type_: Type[Any]) -> bool:
-    return Literal is not None and get_origin(type_) is Literal
+    origin = get_origin(type_)
+    return origin is Literal or origin is LiteralTypingExtensions
 
 
 def literal_values(type_: Type[Any]) -> Tuple[Any, ...]:
