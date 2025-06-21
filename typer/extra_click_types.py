@@ -1,6 +1,7 @@
+import re
 import sys
-from datetime import date, datetime, time
-from typing import Any, Dict, Optional, Sequence
+from datetime import date, datetime, time, timedelta
+from typing import Any, Dict, Optional, Sequence, Union
 
 import click
 
@@ -100,3 +101,105 @@ class PytzTimezone(click.ParamType):
 
     def __repr__(self) -> str:
         return "PytzTimezone"
+
+
+class TimeDelta(click.ParamType):
+    name = "timedelta"
+
+    def convert(
+        self,
+        value: Any,
+        param: Optional[click.Parameter],
+        ctx: Optional[click.Context],
+    ) -> Any:
+        if isinstance(value, timedelta):
+            return value
+        if not isinstance(value, str) or not value.strip():
+            self.fail(str(value), param, ctx)
+
+        # Handle Python serialisation
+        if ":" in value:
+            if ", " in value:
+                days_and_text, hours_minutes_seconds = value.split(", ")
+                days, text = days_and_text.split(" ")
+                if text not in ("day", "days"):
+                    self.fail(str(text), param, ctx)
+            else:
+                days = "0"
+                hours_minutes_seconds = value
+            try:
+                hours, minutes, seconds = hours_minutes_seconds.split(":")
+            except ValueError:
+                self.fail(f"expected HH:MM:SS in {value!r}", param, ctx)
+            if "." in seconds:
+                seconds, microseconds = seconds.split(".")
+            else:
+                microseconds = "000000"
+            return timedelta(
+                days=int(days),
+                hours=int(hours),
+                minutes=int(minutes),
+                seconds=int(seconds),
+                microseconds=int(microseconds),
+            )
+
+        # Handle human-friendly serialisation
+        possible_names = {
+            "weeks": "weeks",
+            "week": "weeks",
+            "w": "weeks",
+            "days": "days",
+            "day": "days",
+            "d": "days",
+            "hours": "hours",
+            "hour": "hours",
+            "hrs": "hours",
+            "hr": "hours",
+            "h": "hours",
+            "minutes": "minutes",
+            "minute": "minutes",
+            "mins": "minutes",
+            "min": "minutes",
+            "m": "minutes",
+            "seconds": "seconds",
+            "second": "seconds",
+            "secs": "seconds",
+            "sec": "seconds",
+            "s": "seconds",
+            "microseconds": "microseconds",
+            "microsecond": "microseconds",
+            "us": "microseconds",
+            "milliseconds": "milliseconds",
+            "millisecond": "milliseconds",
+            "ms": "millisecond",
+        }
+        kwargs = {}
+        parts = [
+            x.group() for x in re.finditer(r"([+-]?\d+)|[a-zA-Z, ]+", value.strip())
+        ]
+        if len(parts) % 2 == 1:
+            self.fail(f"{value} is not a sequence of value-unit pairs", param, ctx)
+        for part_str_value, part_name in zip(parts[::2], parts[1::2]):
+            part_value: Union[int, float]
+            try:
+                part_value = int(part_str_value)
+            except ValueError:
+                try:
+                    part_value = float(part_str_value)
+                except ValueError:
+                    self.fail(
+                        f"{part_str_value!r} in {value!r} is not a number", param, ctx
+                    )
+            clean_name = part_name.lower().strip(", ")
+            if clean_name not in possible_names:
+                self.fail(
+                    f"{clean_name!r} in {value!r} is not a valid unit", param, ctx
+                )
+            kwarg = possible_names[clean_name]
+            if kwarg in kwargs:
+                self.fail(f"{kwarg} in {value!r} are given more than once", param, ctx)
+            kwargs[kwarg] = part_value
+        return timedelta(**kwargs)
+
+    def __repr__(self) -> str:
+        return "TimeDelta"
