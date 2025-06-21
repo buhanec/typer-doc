@@ -198,7 +198,7 @@ class ParameterInfo:
         min: Optional[Union[int, float]] = None,
         max: Optional[Union[int, float]] = None,
         clamp: bool = False,
-        # DateTime
+        # Date, Time, & DateTime
         formats: Optional[List[str]] = None,
         # File
         mode: Optional[str] = None,
@@ -250,7 +250,7 @@ class ParameterInfo:
         self.min = min
         self.max = max
         self.clamp = clamp
-        # DateTime
+        # Date, Time, & DateTime
         self.formats = formats
         # File
         self.mode = mode
@@ -317,7 +317,7 @@ class OptionInfo(ParameterInfo):
         min: Optional[Union[int, float]] = None,
         max: Optional[Union[int, float]] = None,
         clamp: bool = False,
-        # DateTime
+        # Date, Time, & DateTime
         formats: Optional[List[str]] = None,
         # File
         mode: Optional[str] = None,
@@ -363,7 +363,7 @@ class OptionInfo(ParameterInfo):
             min=min,
             max=max,
             clamp=clamp,
-            # DateTime
+            # Date, Time, & DateTime
             formats=formats,
             # File
             mode=mode,
@@ -437,7 +437,7 @@ class ArgumentInfo(ParameterInfo):
         min: Optional[Union[int, float]] = None,
         max: Optional[Union[int, float]] = None,
         clamp: bool = False,
-        # DateTime
+        # Date, Time, & DateTime
         formats: Optional[List[str]] = None,
         # File
         mode: Optional[str] = None,
@@ -483,7 +483,7 @@ class ArgumentInfo(ParameterInfo):
             min=min,
             max=max,
             clamp=clamp,
-            # DateTime
+            # Date, Time, & DateTime
             formats=formats,
             # File
             mode=mode,
