@@ -45,6 +45,8 @@ The patches applied by the fork include:
 * **Param help from docstrings**: Parse param help string from docstrings.
 * **Fix plain defaults formatting**: Remove errant backslash when not using `rich` formatting 
 * **Add `Literal` support**: `Literal` annotations create a choice parameter
+* **Add `datetime.date` support**: `datetime.date` annotations now work
+* **Add `datetime.time` support**: `datetime.time` annotations now work
 * **Test running**: Allow running "Linux" tests on macOS, correctly detect bash being present 
 
 ## FastAPI of CLIs
