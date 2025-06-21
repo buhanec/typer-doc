@@ -27,7 +27,7 @@ def test_help(app):
 
 def test_no_escaped_help(app):
     result = runner.invoke(app, ["--help"])
-    assert not "\\[default: Wade Wilson]" in result.output
+    assert "\\[default: Wade Wilson]" not in result.output
 
 
 def test_call_no_arg(app):
