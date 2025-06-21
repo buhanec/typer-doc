@@ -12,3 +12,11 @@ rich >=10.11.0
 shellingham >=1.3.0
 # Needed for docstring parsing tests
 docstring-parser >= 0.16
+# Backports for zoneinfo
+backports.zoneinfo; python_version < "3.9"
+# tzdata for Windows
+tzdata; sys_platform == "win32"
+# Optional dep that is tested
+pytz
+types-pytz
+
