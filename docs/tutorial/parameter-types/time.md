@@ -2,12 +2,12 @@ You can specify a *CLI parameter* as a Python <a href="https://docs.python.org/3
 
 Your function will receive a standard Python `time` object, and again, your editor will give you completion, etc.
 
-{* docs_src/parameter_types/date/tutorial001.py hl[2,7:9] *}
+{* docs_src/parameter_types/time/tutorial001.py hl[1,6:11] *}
 
 Typer will accept any string from the following formats:
 
 * `%H:%M`
-* `%H:%M:%S'
+* `%H:%M:%S`
 
 Check it:
 
@@ -19,7 +19,7 @@ $ python main.py --help
 Usage: main.py [OPTIONS] BIRTH:[%H:%M|%H:%M:%S]
 
 Arguments:
-  BIRTH:[%H:%M|%H:%M:%S][required]
+  BIRTH:[%H:%M|%H:%M:%S]  [required]
 
 Options:
   --install-completion  Install completion for the current shell.
@@ -32,7 +32,7 @@ $ python main.py 14:02
 Interesting day to be born: 14:02:00
 Born after midday!
 
-// An invalid date
+// An invalid time
 $ python main.py 14:02.2
 
 Usage: main.py [OPTIONS] BIRTH:[%H:%M|%H:%M:%S]
@@ -50,14 +50,14 @@ You can also customize the formats received for the `time` with the `formats` pa
 
 For example, let's imagine that you want to accept an ISO formatted time, but also a time showing the hour and minutes, with no separators:
 
-{* docs_src/parameter_types/date/tutorial002.py hl[8] *}
+{* docs_src/parameter_types/time/tutorial002.py hl[6] *}
 
 Check it:
 
 <div class="termy">
 
 ```console
-// ISO dates work
+// ISO times work
 $ python main.py 14:02:00
 
 Launch will be at: 14:02:00
