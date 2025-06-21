@@ -9,7 +9,7 @@
 <!-- /only-mkdocs -->
 </p>
 <p align="center">
-    <em>Typer, build great CLIs. Easy to code. Based on Python type hints.</em>
+    <em>Typer, build great CLIs. Easy to code. Based on Python type hints and docstrings.</em>
 </p>
 <p align="center">
 <a href="https://github.com/fastapi/typer/actions?query=workflow%3ATest" target="_blank">
@@ -33,7 +33,7 @@
 
 ---
 
-Typer is a library for building <abbr title="command line interface, programs executed from a terminal">CLI</abbr> applications that users will **love using** and developers will **love creating**. Based on Python type hints.
+Typer is a library for building <abbr title="command line interface, programs executed from a terminal">CLI</abbr> applications that users will **love using** and developers will **love creating**. Based on Python type hints and docstrings.
 
 It's also a command line tool to run scripts, automatically converting them to CLI applications.
 

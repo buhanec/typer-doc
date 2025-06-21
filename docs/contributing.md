@@ -4,7 +4,7 @@ First, you might want to see the basic ways to [help Typer and get help](help-ty
 
 ## Developing
 
-If you already cloned the <a href="https://github.com/fastapi/typer" class="external-link" target="_blank">typer repository</a> and you want to deep dive in the code, here are some guidelines to set up your environment.
+If you already cloned the <a href="https://github.com/buhanec/typer-doc" class="external-link" target="_blank">typer repository</a> and you want to deep dive in the code, here are some guidelines to set up your environment.
 
 ### Virtual Environment
 

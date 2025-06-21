@@ -3,14 +3,14 @@
 
 </p>
 <p align="center">
-    <em>Typer, build great CLIs. Easy to code. Based on Python type hints.</em>
+    <em>Typer, build great CLIs. Easy to code. Based on Python type hints and docstrings.</em>
 </p>
 <p align="center">
-<a href="https://github.com/fastapi/typer/actions?query=workflow%3ATest" target="_blank">
-    <img src="https://github.com/fastapi/typer/workflows/Test/badge.svg" alt="Test">
+<a href="https://github.com/buhanec/typer-doc/actions?query=workflow%3ATest" target="_blank">
+    <img src="https://github.com/buhanec/typer-doc/workflows/Test/badge.svg" alt="Test">
 </a>
-<a href="https://github.com/fastapi/typer/actions?query=workflow%3APublish" target="_blank">
-    <img src="https://github.com/fastapi/typer/workflows/Publish/badge.svg" alt="Publish">
+<a href="https://github.com/buhanec/typer-doc/actions?query=workflow%3APublish" target="_blank">
+    <img src="https://github.com/buhanec/typer-doc/workflows/Publish/badge.svg" alt="Publish">
 </a>
 <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/typer" target="_blank">
     <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/typer.svg" alt="Coverage">
@@ -23,11 +23,11 @@
 
 **Documentation**: <a href="https://typer.tiangolo.com" target="_blank">https://typer.tiangolo.com</a>
 
-**Source Code**: <a href="https://github.com/fastapi/typer" target="_blank">https://github.com/fastapi/typer</a>
+**Source Code**: <a href="https://github.com/buhanec/typer-doc" target="_blank">https://github.com/buhanec/typer-doc</a>, with minimal patching on top of <a href="https://github.com/fastapi/typer" target="_blank">https://github.com/fastapi/typer</a>
 
 ---
 
-Typer is a library for building <abbr title="command line interface, programs executed from a terminal">CLI</abbr> applications that users will **love using** and developers will **love creating**. Based on Python type hints.
+Typer is a library for building <abbr title="command line interface, programs executed from a terminal">CLI</abbr> applications that users will **love using** and developers will **love creating**. Based on Python type hints and docstrings.
 
 It's also a command line tool to run scripts, automatically converting them to CLI applications.
 
@@ -40,6 +40,14 @@ The key features are:
 * **Grow large**: Grow in complexity as much as you want, create arbitrarily complex trees of commands and groups of subcommands, with options and arguments.
 * **Run scripts**: Typer includes a `typer` command/program that you can use to run scripts, automatically converting them to CLIs, even if they don't use Typer internally.
 
+---
+
+The patches applied by the fork include:
+
+* **Param help from docstrings**: Parse param help string from docstrings.
+* **Fix plain defaults formatting**: Remove errant backslash when not using `rich` formatting 
+* **Test running**: Allow running "Linux" tests on macOS, correctly detect bash being present 
+
 ## FastAPI of CLIs
 
 **Typer** is <a href="https://fastapi.tiangolo.com" class="external-link" target="_blank">FastAPI</a>'s little sibling, it's the FastAPI of CLIs.
@@ -51,9 +59,9 @@ Create and activate a <a href="https://typer.tiangolo.com/virtual-environments/"
 <div class="termy">
 
 ```console
-$ pip install typer
+$ pip install typer-doc
 ---> 100%
-Successfully installed typer rich shellingham
+Successfully installed typer rich shellingham docstring-parser
 ```
 
 </div>
