@@ -47,6 +47,7 @@ The patches applied by the fork include:
 * **Add `Literal` support**: `Literal` annotations create a choice parameter
 * **Add `datetime.date` support**: `datetime.date` annotations now work
 * **Add `datetime.time` support**: `datetime.time` annotations now work
+* **Add `datetime.timedelta` support**: `datetime.timedelta` annotations now work
 * **Add `zoneinfo` and `pytz` support**: Timezone annotations now work
 * **Test running**: Allow running "Linux" tests on macOS, correctly detect bash being present 
 

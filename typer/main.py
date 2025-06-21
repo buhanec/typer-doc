@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import sys
 import traceback
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
 from enum import Enum
 from functools import update_wrapper
 from pathlib import Path
@@ -775,6 +775,8 @@ def get_click_type(
         return extra_click_types.Date(formats=parameter_info.formats)
     elif annotation == time:
         return extra_click_types.Time(formats=parameter_info.formats)
+    elif annotation == timedelta:
+        return extra_click_types.TimeDelta()
     elif zoneinfo is not None and annotation == zoneinfo.ZoneInfo:
         return extra_click_types.ZoneInfo()
     elif pytz is not None and annotation == pytz.BaseTzInfo:
