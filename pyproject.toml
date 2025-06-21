@@ -3,9 +3,9 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
 [project]
-name = "typer"
+name = "typer-doc"
 dynamic = ["version"]
-description = "Typer, build great CLIs. Easy to code. Based on Python type hints."
+description = "Typer, build great CLIs. Easy to code. Based on Python type hints and docstrings."
 authors = [
     {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
 ]
@@ -39,10 +39,10 @@ dependencies = [
 ]
 readme = "README.md"
 [project.urls]
-Homepage = "https://github.com/fastapi/typer"
+Homepage = "https://github.com/buhanec/typer-doc"
 Documentation = "https://typer.tiangolo.com"
-Repository = "https://github.com/fastapi/typer"
-Issues = "https://github.com/fastapi/typer/issues"
+Repository = "https://github.com/buhanec/typer-doc"
+Issues = "https://github.com/buhanec/typer-doc/issues"
 Changelog = "https://typer.tiangolo.com/release-notes/"
 
 [project.optional-dependencies]
