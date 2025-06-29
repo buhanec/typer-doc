@@ -1,9 +1,11 @@
+import inspect
 import re
 import sys
 from datetime import date, datetime, time, timedelta
-from typing import Any, Dict, Optional, Sequence, Union
+from typing import Any, Dict, List, Optional, Sequence, Union
 
 import click
+import click.shell_completion
 
 if sys.version_info < (3, 9):
     try:
@@ -206,3 +208,66 @@ class TimeDelta(click.ParamType):
 
     def __repr__(self) -> str:
         return "TimeDelta"
+
+
+class OrParam(click.ParamType):
+    def __init__(self, param_types: Sequence[click.ParamType]):
+        self.param_types = param_types
+        self.name = "_or_".join(param_type.name for param_type in self.param_types)
+
+    def to_info_dict(self) -> Dict[str, Any]:
+        return {
+            param_type.name: param_type.to_info_dict()
+            for param_type in self.param_types
+        }
+
+    def convert(
+        self,
+        value: Any,
+        param: Optional[click.Parameter],
+        ctx: Optional[click.Context],
+    ) -> Any:
+        errors = []
+        for param_type in self.param_types:
+            try:
+                return param_type.convert(value, param, ctx)
+            except click.BadParameter as e:
+                errors.append(e.message.rstrip("."))
+        errors_str = "; ".join(errors)
+        self.fail(f"No conversions succeeded: {errors_str}.", param, ctx)
+
+    def get_metavar(
+        self,
+        param: click.Parameter,
+        ctx: Optional[click.Context] = None,
+    ) -> Optional[str]:
+        metavars = []
+        for param_type in self.param_types:
+            if "ctx" in inspect.signature(param_type.get_metavar).parameters:
+                # Click >= 8.2
+                assert ctx is not None
+                metavars.append(param_type.get_metavar(param, ctx))
+            else:
+                # Click < 8.2
+                metavars.append(param_type.get_metavar(param))  # type: ignore[call-arg]
+        return "|".join(
+            metavar or param_type.name.upper()
+            for metavar, param_type in zip(metavars, self.param_types)
+        )
+
+    def shell_complete(
+        self,
+        ctx: click.Context,
+        param: click.Parameter,
+        incomplete: str,
+    ) -> List[click.shell_completion.CompletionItem]:
+        completions = [
+            param_type.shell_complete(ctx, param, incomplete)
+            for param_type in self.param_types
+        ]
+        if not incomplete and not all(completions):
+            return []
+        return [item for items in completions for item in items]
+
+    def __repr__(self) -> str:
+        return "_OR_".join(repr(param_type) for param_type in self.param_types)
