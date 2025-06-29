@@ -6,7 +6,10 @@ from typing import Any, Dict, Optional, Sequence, Union
 import click
 
 if sys.version_info < (3, 9):
-    from backports import zoneinfo
+    try:
+        from backports import zoneinfo
+    except ImportError:
+        zoneinfo = None  # type: ignore
 else:
     import zoneinfo
 
