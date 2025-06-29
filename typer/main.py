@@ -838,7 +838,7 @@ def get_click_type(
             case_sensitive=parameter_info.case_sensitive,
         )
     elif is_literal_type(annotation):
-        return click.Choice(
+        return TyperChoice(
             literal_values(annotation),
             case_sensitive=parameter_info.case_sensitive,
         )
