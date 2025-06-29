@@ -1,3 +1,4 @@
+import enum
 import inspect
 import os
 import platform
@@ -885,15 +886,19 @@ def get_click_param(
     parameter_type: Any = None
     is_flag = None
     origin = get_origin(main_type)
+    extra_literal_choices: List[Union[int, bytes, str, enum.Enum, None]] = []
 
     if origin is not None:
-        # Handle SomeType | None and Optional[SomeType]
+        # Handle SomeType | None, Optional[SomeType], and SomeType | Literal[...]
         if is_union(origin):
             types = []
             for type_ in get_args(main_type):
                 if type_ is NoneType:
                     continue
-                types.append(type_)
+                if is_literal_type(type_):
+                    extra_literal_choices.extend(literal_values(type_))
+                else:
+                    types.append(type_)
             assert len(types) == 1, "Typer Currently doesn't support Union types"
             main_type = types[0]
             origin = get_origin(main_type)
@@ -918,6 +923,16 @@ def get_click_param(
     if parameter_type is None:
         parameter_type = get_click_type(
             annotation=main_type, parameter_info=parameter_info
+        )
+    if extra_literal_choices:
+        parameter_type = extra_click_types.OrParam(
+            param_types=[
+                TyperChoice(
+                    extra_literal_choices,
+                    case_sensitive=parameter_info.case_sensitive,
+                ),
+                parameter_type,
+            ]
         )
     convertor = determine_type_convertor(main_type)
     if is_list:
